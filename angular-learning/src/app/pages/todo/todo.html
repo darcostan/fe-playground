@@ -1,0 +1,100 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>✅ Todo List</h1>
+    <p class="page-desc">CRUD application using Angular Signals. Add, toggle, and delete todos while seeing signals in action.</p>
+  </div>
+
+  <div class="demo-section">
+    <div class="todo-input-row">
+      <button (click)="toggleAll()" class="toggle-all-btn" [class.all-done]="allCompleted()" title="Toggle all">
+        ✓
+      </button>
+      <input
+        type="text"
+        class="todo-input"
+        placeholder="What needs to be done?"
+        [value]="newTodoText()"
+        (input)="updateNewTodoText($any($event.target).value)"
+        (keyup.enter)="addTodo()"
+      />
+      <button (click)="addTodo()" class="add-btn" [disabled]="!newTodoText().trim()">Add</button>
+    </div>
+
+    <ul class="todo-list">
+      @if (filteredTodos().length === 0) {
+        <li class="empty-state">
+          @if (filter() === 'completed') { 🎉 No completed todos yet! }
+          @else if (filter() === 'active') { 🎊 All todos are done! }
+          @else { 📝 Add your first todo above! }
+        </li>
+      }
+      @for (todo of filteredTodos(); track todo.id) {
+        <li class="todo-item" [class.completed]="todo.completed">
+          <input type="checkbox" [checked]="todo.completed" (change)="toggleTodo(todo.id)" class="todo-check" />
+          <span class="todo-text">{{ todo.text }}</span>
+          <button (click)="deleteTodo(todo.id)" class="delete-btn" title="Delete">✕</button>
+        </li>
+      }
+    </ul>
+
+    <div class="todo-footer">
+      <span class="count-info">{{ activeCount() }} item{{ activeCount() !== 1 ? 's' : '' }} left</span>
+      
+      <div class="filter-buttons">
+        @for (f of ['all', 'active', 'completed']; track f) {
+          <button (click)="setFilter($any(f))" [class.active]="filter() === f" class="filter-btn">
+            {{ f | titlecase }}
+          </button>
+        }
+      </div>
+
+      @if (completedCount() > 0) {
+        <button (click)="clearCompleted()" class="clear-btn">Clear completed ({{ completedCount() }})</button>
+      }
+    </div>
+  </div>
+
+  <div class="stats-section">
+    <h2>📊 Signal State</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-label">total</span>
+        <span class="stat-value">{{ totalCount() }}</span>
+      </div>
+      <div class="stat-card active">
+        <span class="stat-label">active</span>
+        <span class="stat-value">{{ activeCount() }}</span>
+      </div>
+      <div class="stat-card completed">
+        <span class="stat-label">completed</span>
+        <span class="stat-value">{{ completedCount() }}</span>
+      </div>
+      <div class="stat-card filter">
+        <span class="stat-label">filter</span>
+        <span class="stat-value">{{ filter() }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>💻 Key Concepts</h2>
+    <pre class="code-block"><code>// Signal array state
+todos = signal&lt;TodoItem[]&gt;([]);
+
+// Computed derived state
+filteredTodos = computed(() =>
+  this.todos().filter(/* ... */)
+);
+
+// Immutable updates with update()
+addTodo() &#123;
+  this.todos.update(items => [...items, newItem]);
+&#125;
+
+toggleTodo(id: number) &#123;
+  this.todos.update(items =>
+    items.map(t => t.id === id ? &#123;...t, completed: !t.completed&#125; : t)
+  );
+&#125;</code></pre>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>🔧 Pipes Demo</h1>
+    <p class="page-desc">Angular pipes transform displayed values in templates. Explore built-in pipes and custom pipes.</p>
+  </div>
+
+  <!-- Built-in Pipes -->
+  <div class="demo-section">
+    <h2>📅 Date Pipe</h2>
+    <div class="pipe-table">
+      <div class="pipe-row"><span class="pipe-label">now | date</span><span class="pipe-value">{{ now | date }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">now | date:'short'</span><span class="pipe-value">{{ now | date:'short' }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">now | date:'EEEE, MMMM d, y'</span><span class="pipe-value">{{ now | date:'EEEE, MMMM d, y' }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">now | date:'HH:mm:ss'</span><span class="pipe-value">{{ now | date:'HH:mm:ss' }}</span></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>💰 Currency &amp; Number Pipes</h2>
+    <div class="pipe-table">
+      <div class="pipe-row"><span class="pipe-label">{{ price() }} | currency</span><span class="pipe-value">{{ price() | currency }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">{{ price() }} | currency:'EUR':'symbol'</span><span class="pipe-value">{{ price() | currency:'EUR':'symbol' }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">{{ price() }} | number:'1.2-2'</span><span class="pipe-value">{{ price() | number:'1.2-2' }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">{{ ratio() }} | percent:'1.1-2'</span><span class="pipe-value">{{ ratio() | percent:'1.1-2' }}</span></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>🔠 Text Pipes</h2>
+    <div class="pipe-table">
+      <div class="pipe-row"><span class="pipe-label">'hello world' | uppercase</span><span class="pipe-value">{{ 'hello world' | uppercase }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">'HELLO WORLD' | lowercase</span><span class="pipe-value">{{ 'HELLO WORLD' | lowercase }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">'hello world' | titlecase</span><span class="pipe-value">{{ 'hello world' | titlecase }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">fruits | slice:0:3</span><span class="pipe-value">{{ fruits | slice:0:3 }}</span></div>
+    </div>
+  </div>
+
+  <div class="demo-section">
+    <h2>⏱️ AsyncPipe</h2>
+    <p>The <code>async</code> pipe subscribes to Observables/Promises automatically and unsubscribes on destroy.</p>
+    <div class="async-demo">
+      <div class="ticker">{{ ticker$ | async }}</div>
+    </div>
+    <pre class="code-block"><code>ticker$ = interval(1000).pipe(
+  map(n => `Tick #$&#123;n + 1&#125;`)
+);
+// In template: &#123;&#123; ticker$ | async &#125;&#125;</code></pre>
+  </div>
+
+  <div class="demo-section">
+    <h2>📦 JSON Pipe</h2>
+    <pre class="code-block">{{ sampleObject | json }}</pre>
+  </div>
+
+  <!-- Custom Pipes -->
+  <div class="demo-section">
+    <h2>✨ Custom Pipe: truncate</h2>
+    <p>A custom pipe that truncates text to a max length.</p>
+    <div class="pipe-table">
+      <div class="pipe-row"><span class="pipe-label">text | truncate</span><span class="pipe-value">{{ longText() | truncate }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">text | truncate:30</span><span class="pipe-value">{{ longText() | truncate:30 }}</span></div>
+      <div class="pipe-row"><span class="pipe-label">text | truncate:20:'!!!'</span><span class="pipe-value">{{ longText() | truncate:20:'!!!' }}</span></div>
+    </div>
+    <pre class="code-block"><code>&#64;Pipe(&#123; name: 'truncate' &#125;)
+export class TruncatePipe implements PipeTransform &#123;
+  transform(value: string, maxLength = 50, ellipsis = '...'): string &#123;
+    if (value.length &lt;= maxLength) return value;
+    return value.substring(0, maxLength) + ellipsis;
+  &#125;
+&#125;</code></pre>
+  </div>
+
+  <div class="demo-section">
+    <h2>🔍 Custom Pipe: highlight</h2>
+    <p>A custom pipe that highlights search terms in text.</p>
+    <div class="search-row">
+      <label>Search term:</label>
+      <input type="text" [value]="searchTerm()" (input)="updateSearchTerm($any($event.target).value)" class="search-input" placeholder="Type to highlight..." />
+    </div>
+    <div class="highlight-demo" [innerHTML]="sampleText | highlight:searchTerm()"></div>
+  </div>
+</div>

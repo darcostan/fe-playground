@@ -1,0 +1,77 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>🔢 Counter</h1>
+    <p class="page-desc">Learn basic signal-based reactivity. Click the buttons to see how signals update automatically.</p>
+  </div>
+
+  <div class="demo-section">
+    <div class="counter-display" [class.positive]="isPositive()" [class.negative]="isNegative()">
+      <span class="count-value">{{ count() }}</span>
+      <span class="parity-badge" [class.even]="isEven()" [class.odd]="!isEven()">
+        {{ isEven() ? 'Even' : 'Odd' }}
+      </span>
+    </div>
+
+    <div class="step-control">
+      <label>Step size:</label>
+      <div class="step-buttons">
+        @for (s of [1, 5, 10]; track s) {
+          <button (click)="setStep(s)" [class.active]="step() === s" class="step-btn">{{ s }}</button>
+        }
+      </div>
+    </div>
+
+    <div class="counter-controls">
+      <button (click)="decrement()" class="btn btn-danger">➖ Decrement</button>
+      <button (click)="reset()" class="btn btn-secondary">🔄 Reset</button>
+      <button (click)="increment()" class="btn btn-primary">➕ Increment</button>
+    </div>
+  </div>
+
+  <div class="computed-values">
+    <h2>📊 Computed Values</h2>
+    <p class="desc">These values are <strong>automatically derived</strong> from the counter signal using <code>computed()</code>.</p>
+    <div class="computed-grid">
+      <div class="computed-card">
+        <span class="label">count()</span>
+        <span class="value">{{ count() }}</span>
+        <span class="code">signal(0)</span>
+      </div>
+      <div class="computed-card">
+        <span class="label">doubled()</span>
+        <span class="value">{{ doubled() }}</span>
+        <span class="code">computed(() => count() * 2)</span>
+      </div>
+      <div class="computed-card">
+        <span class="label">absValue()</span>
+        <span class="value">{{ absValue() }}</span>
+        <span class="code">computed(() => Math.abs(count()))</span>
+      </div>
+      <div class="computed-card">
+        <span class="label">isEven()</span>
+        <span class="value">{{ isEven() }}</span>
+        <span class="code">computed(() => count() % 2 === 0)</span>
+      </div>
+      <div class="computed-card">
+        <span class="label">isPositive()</span>
+        <span class="value">{{ isPositive() }}</span>
+        <span class="code">computed(() => count() > 0)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>💻 Code Explanation</h2>
+    <pre class="code-block"><code>// 1. Create a signal with initial value
+count = signal(0);
+
+// 2. Computed values - re-evaluate automatically
+doubled = computed(() => this.count() * 2);
+isEven = computed(() => this.count() % 2 === 0);
+
+// 3. Update the signal
+increment() &#123; this.count.update(v => v + 1); &#125;
+decrement() &#123; this.count.update(v => v - 1); &#125;
+reset()     &#123; this.count.set(0); &#125;</code></pre>
+  </div>
+</div>

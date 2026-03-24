@@ -1,0 +1,99 @@
+.controls-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  
+  .control-group {
+    flex: 1;
+    min-width: 200px;
+    
+    label { display: block; font-weight: 600; margin-bottom: 0.4rem; color: #555; font-size: 0.9rem; }
+  }
+}
+
+.text-input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  &:focus { border-color: #dd0031; }
+}
+
+.log-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  h2 { margin: 0; font-size: 1.3rem; }
+}
+
+.hook-log {
+  background: #1a1a2e;
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 150px;
+  max-height: 300px;
+  overflow-y: auto;
+  
+  .empty-log { color: #666; font-style: italic; font-size: 0.9rem; }
+  
+  .log-entry {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid #333;
+    font-family: monospace;
+    font-size: 0.9rem;
+    
+    &:last-child { border-bottom: none; }
+    
+    .hook-name { font-weight: 600; }
+    .hook-time { color: #666; font-size: 0.8rem; }
+  }
+}
+
+.hooks-reference {
+  margin-top: 2rem;
+  h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+}
+
+.hooks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.hook-card {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-left: 4px solid;
+  border-radius: 0 8px 8px 0;
+  padding: 1rem;
+  
+  .hook-title { font-weight: 700; font-family: monospace; margin-bottom: 0.5rem; font-size: 1rem; }
+  .hook-desc { font-size: 0.88rem; color: #666; line-height: 1.5; }
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+  &:hover { background: #c82333; }
+}
+
+.clear-btn {
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+}

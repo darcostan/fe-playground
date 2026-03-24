@@ -1,0 +1,103 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>⚡ Signals Deep Dive</h1>
+    <p class="page-desc">Explore Angular's reactive primitives: <code>signal()</code>, <code>computed()</code>, <code>effect()</code>, and <code>linkedSignal()</code>.</p>
+  </div>
+
+  <!-- signal() + computed() -->
+  <div class="demo-section">
+    <h2>1. signal() + computed()</h2>
+    <p>Create reactive state with <code>signal()</code> and derive values with <code>computed()</code>.</p>
+    <div class="input-row">
+      <label>First Name:</label>
+      <input [value]="firstName()" (input)="updateFirstName($any($event.target).value)" class="text-input" />
+    </div>
+    <div class="input-row">
+      <label>Last Name:</label>
+      <input [value]="lastName()" (input)="updateLastName($any($event.target).value)" class="text-input" />
+    </div>
+    <div class="result-box">
+      <strong>fullName (computed)</strong>: <span class="highlight">{{ fullName() }}</span>
+    </div>
+    <pre class="code-block"><code>firstName = signal('Angular');
+lastName = signal('Student');
+fullName = computed(() => `$&#123;this.firstName()&#125; $&#123;this.lastName()&#125;`);</code></pre>
+  </div>
+
+  <!-- effect() -->
+  <div class="demo-section">
+    <h2>2. effect()</h2>
+    <p>Run side effects whenever a signal changes. Effects track their dependencies automatically.</p>
+    <div class="effect-log">
+      <div class="log-header">Effect Log (updates when fullName changes):</div>
+      @if (effectLog.length === 0) {
+        <div class="log-empty">Change the name above to see effects...</div>
+      }
+      @for (entry of effectLog; track entry) {
+        <div class="log-entry">{{ entry }}</div>
+      }
+    </div>
+    <pre class="code-block"><code>effect(() => &#123;
+  console.log('fullName changed:', this.fullName());
+&#125;);</code></pre>
+  </div>
+
+  <!-- linkedSignal() -->
+  <div class="demo-section">
+    <h2>3. linkedSignal()</h2>
+    <p><code>linkedSignal()</code> creates a writable signal whose value resets when its source changes.</p>
+    <div class="linked-demo">
+      <div class="select-row">
+        <label>Selected:</label>
+        <select [value]="selected()" (change)="selected.set($any($event.target).value)" class="select-input">
+          @for (opt of options(); track opt) {
+            <option [value]="opt">{{ opt }}</option>
+          }
+        </select>
+      </div>
+      <button (click)="addOption()" class="btn btn-primary">+ Add Option</button>
+      <div class="result-box">
+        <strong>selected()</strong>: <span class="highlight">{{ selected() }}</span>
+        <span class="note">(resets to first option when options list changes)</span>
+      </div>
+    </div>
+    <pre class="code-block"><code>options = signal(['A', 'B', 'C']);
+// Resets to options()[0] whenever options changes
+selected = linkedSignal(() => this.options()[0]);</code></pre>
+  </div>
+
+  <!-- Temperature with transform -->
+  <div class="demo-section">
+    <h2>4. Computed with Transformation</h2>
+    <p>Computed signals can transform data. Here a temperature converts between °C and °F.</p>
+    <div class="temp-demo">
+      <div class="input-row">
+        <label>Temperature (°C): {{ temperature() }}</label>
+        <input type="range" min="-50" max="100" [value]="temperature()" (input)="updateTemperature(+$any($event.target).value)" class="range-input" />
+      </div>
+      <div class="toggle-row">
+        <button (click)="tempUnit.set('C')" [class.active]="tempUnit() === 'C'" class="unit-btn">°C</button>
+        <button (click)="tempUnit.set('F')" [class.active]="tempUnit() === 'F'" class="unit-btn">°F</button>
+      </div>
+      <div class="result-box temp-display">{{ displayTemp() }}</div>
+    </div>
+  </div>
+
+  <!-- Signal with object -->
+  <div class="demo-section">
+    <h2>5. Signal with Object (Immutable Updates)</h2>
+    <p>When signals hold objects, use <code>update()</code> with spread to create new references.</p>
+    <div class="user-card">
+      <div class="user-field"><span class="field-name">name:</span> {{ user().name }}</div>
+      <div class="user-field"><span class="field-name">age:</span> {{ user().age }}</div>
+      <div class="user-field"><span class="field-name">role:</span> {{ user().role }}</div>
+    </div>
+    <button (click)="incrementAge()" class="btn btn-primary">🎂 Increment Age</button>
+    <pre class="code-block"><code>user = signal(&#123; name: 'Alice', age: 25 &#125;);
+
+// Immutable update with spread operator
+incrementAge() &#123;
+  this.user.update(u => (&#123; ...u, age: u.age + 1 &#125;));
+&#125;</code></pre>
+  </div>
+</div>

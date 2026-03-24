@@ -1,0 +1,117 @@
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  
+  label { min-width: 100px; font-weight: 600; color: #555; font-size: 0.9rem; }
+}
+
+.text-input {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 6px;
+  font-size: 1rem;
+  flex: 1;
+  max-width: 300px;
+  outline: none;
+  transition: border-color 0.2s;
+  &:focus { border-color: #dd0031; }
+}
+
+.result-box {
+  background: #f8f9fa;
+  border-left: 4px solid #dd0031;
+  padding: 0.75rem 1rem;
+  border-radius: 0 8px 8px 0;
+  margin: 1rem 0;
+  font-size: 1rem;
+  
+  .highlight { color: #dd0031; font-weight: 700; font-size: 1.1rem; }
+  .note { color: #888; font-size: 0.8rem; margin-left: 1rem; }
+}
+
+.effect-log {
+  background: #1a1a2e;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  margin: 1rem 0;
+  min-height: 80px;
+  
+  .log-header { color: #7ec8e3; font-size: 0.8rem; margin-bottom: 0.5rem; font-weight: 600; }
+  .log-empty { color: #666; font-style: italic; font-size: 0.9rem; }
+  .log-entry {
+    color: #a8ff78;
+    font-family: monospace;
+    font-size: 0.85rem;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid #333;
+    &:last-child { border-bottom: none; }
+  }
+}
+
+.linked-demo, .temp-demo {
+  .select-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    label { font-weight: 600; color: #555; min-width: 80px; }
+  }
+}
+
+.select-input {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s;
+  &:focus { border-color: #dd0031; }
+}
+
+.range-input { width: 100%; max-width: 300px; accent-color: #dd0031; }
+
+.toggle-row {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.unit-btn {
+  padding: 0.4rem 1rem;
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  background: white;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.2s;
+  
+  &.active { border-color: #dd0031; background: #dd0031; color: white; }
+  &:hover:not(.active) { border-color: #aaa; }
+}
+
+.temp-display {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #dd0031;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.user-card {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  
+  .user-field {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 1rem;
+    &:last-child { border-bottom: none; }
+    .field-name { font-weight: 700; color: #888; font-family: monospace; min-width: 60px; display: inline-block; }
+  }
+}
