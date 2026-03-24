@@ -41,7 +41,7 @@ export class PipesDemo {
 
   sampleObject = {
     framework: 'Angular',
-    version: 19,
+    version: 21,
     features: ['signals', 'standalone', 'control flow'],
   };
 
