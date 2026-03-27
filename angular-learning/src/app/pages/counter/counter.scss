@@ -1,0 +1,108 @@
+.counter-display {
+  text-align: center;
+  padding: 2rem;
+  background: #f8f9fa;
+  border-radius: 16px;
+  margin-bottom: 2rem;
+  border: 3px solid #e8e8e8;
+  transition: border-color 0.3s;
+  
+  &.positive { border-color: #28a745; }
+  &.negative { border-color: #dc3545; }
+  
+  .count-value {
+    display: block;
+    font-size: 5rem;
+    font-weight: 800;
+    color: #333;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  
+  .parity-badge {
+    display: inline-block;
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    
+    &.even { background: #d4edda; color: #155724; }
+    &.odd { background: #fff3cd; color: #856404; }
+  }
+}
+
+.step-control {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+  
+  label { font-weight: 600; color: #555; }
+  
+  .step-buttons { display: flex; gap: 0.5rem; }
+  
+  .step-btn {
+    padding: 0.4rem 1rem;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    background: white;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s;
+    
+    &.active {
+      border-color: #dd0031;
+      background: #dd0031;
+      color: white;
+    }
+    
+    &:hover:not(.active) { border-color: #aaa; }
+  }
+}
+
+.counter-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background 0.2s;
+  &:hover { background: #c82333; }
+}
+
+.computed-values {
+  margin-top: 2.5rem;
+  
+  h2 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+  .desc { color: #666; margin-bottom: 1.5rem; font-size: 0.95rem; }
+}
+
+.computed-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.computed-card {
+  background: white;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  padding: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  
+  .label { font-size: 1rem; font-weight: 700; color: #333; font-family: monospace; }
+  .value { font-size: 1.8rem; font-weight: 800; color: #dd0031; }
+  .code { font-size: 0.72rem; color: #888; font-family: monospace; background: #f5f5f5; padding: 0.3rem 0.5rem; border-radius: 4px; }
+}

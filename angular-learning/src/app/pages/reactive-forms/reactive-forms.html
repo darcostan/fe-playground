@@ -1,0 +1,127 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>📝 Reactive Forms</h1>
+    <p class="page-desc">Learn Angular Reactive Forms with FormBuilder, Validators, FormGroup, and FormArray.</p>
+  </div>
+
+  @if (submitted()) {
+    <div class="success-banner">
+      ✅ Form submitted successfully!
+      <button (click)="reset()" class="btn btn-secondary reset-btn">Reset Form</button>
+    </div>
+    <div class="demo-section">
+      <h2>📦 Form Value (JSON)</h2>
+      <pre class="code-block">{{ formValue() | json }}</pre>
+    </div>
+  } @else {
+    <div class="demo-section">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+        
+        <!-- Name -->
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input formControlName="name" type="text" class="form-control" placeholder="Enter your name" [class.invalid]="nameCtrl?.invalid && nameCtrl?.touched" />
+          @if (nameCtrl?.invalid && nameCtrl?.touched) {
+            <div class="error-msg">
+              @if (nameCtrl?.errors?.['required']) { Name is required. }
+              @else if (nameCtrl?.errors?.['minlength']) { Name must be at least 3 characters. }
+            </div>
+          }
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+          <label class="form-label">Email *</label>
+          <input formControlName="email" type="email" class="form-control" placeholder="Enter email" [class.invalid]="emailCtrl?.invalid && emailCtrl?.touched" />
+          @if (emailCtrl?.invalid && emailCtrl?.touched) {
+            <div class="error-msg">
+              @if (emailCtrl?.errors?.['required']) { Email is required. }
+              @else if (emailCtrl?.errors?.['email']) { Enter a valid email address. }
+            </div>
+          }
+        </div>
+
+        <!-- Age -->
+        <div class="form-group">
+          <label class="form-label">Age *</label>
+          <input formControlName="age" type="number" class="form-control" placeholder="Enter age" [class.invalid]="ageCtrl?.invalid && ageCtrl?.touched" />
+          @if (ageCtrl?.invalid && ageCtrl?.touched) {
+            <div class="error-msg">
+              @if (ageCtrl?.errors?.['required']) { Age is required. }
+              @else if (ageCtrl?.errors?.['min']) { Must be at least 18. }
+              @else if (ageCtrl?.errors?.['max']) { Must be under 120. }
+            </div>
+          }
+        </div>
+
+        <!-- Role -->
+        <div class="form-group">
+          <label class="form-label">Role *</label>
+          <select formControlName="role" class="form-control">
+            <option value="developer">Developer</option>
+            <option value="designer">Designer</option>
+            <option value="manager">Manager</option>
+            <option value="student">Student</option>
+          </select>
+        </div>
+
+        <!-- Bio -->
+        <div class="form-group">
+          <label class="form-label">Bio (max 200 chars)</label>
+          <textarea formControlName="bio" class="form-control" rows="3" placeholder="Tell us about yourself..."></textarea>
+          <span class="char-count">{{ form.get('bio')?.value?.length || 0 }}/200</span>
+        </div>
+
+        <!-- Skills FormArray -->
+        <div class="form-group">
+          <label class="form-label">Skills (FormArray)</label>
+          <div formArrayName="skills">
+            @for (ctrl of skills.controls; track $index) {
+              <div class="skill-row">
+                <input [formControlName]="$index" type="text" class="form-control skill-input" placeholder="Enter a skill" />
+                @if (skills.length > 1) {
+                  <button type="button" (click)="removeSkill($index)" class="remove-skill-btn">✕</button>
+                }
+              </div>
+            }
+          </div>
+          <button type="button" (click)="addSkill()" class="btn btn-secondary add-skill-btn">+ Add Skill</button>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="form-group checkbox-group">
+          <input formControlName="newsletter" type="checkbox" id="newsletter" class="checkbox-input" />
+          <label for="newsletter" class="checkbox-label">Subscribe to newsletter</label>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+            Submit Form
+          </button>
+          <button type="button" (click)="reset()" class="btn btn-secondary">Reset</button>
+          <span class="form-status" [class.valid]="form.valid" [class.invalid]="form.invalid">
+            Form: {{ form.valid ? '✅ Valid' : '❌ Invalid' }} | 
+            Status: {{ form.status }}
+          </span>
+        </div>
+      </form>
+    </div>
+  }
+
+  <div class="code-section">
+    <h2>💻 Key Concepts</h2>
+    <pre class="code-block"><code>// FormBuilder creates form controls
+form = this.fb.group(&#123;
+  name: ['', [Validators.required, Validators.minLength(3)]],
+  email: ['', [Validators.required, Validators.email]],
+  skills: this.fb.array([...]),  // FormArray
+&#125;);
+
+// Access FormArray
+get skills() &#123; return this.form.get('skills') as FormArray; &#125;
+
+// Add/Remove from FormArray
+addSkill()  &#123; this.skills.push(this.fb.control('')); &#125;
+removeSkill(i: number) &#123; this.skills.removeAt(i); &#125;</code></pre>
+  </div>
+</div>

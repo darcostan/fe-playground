@@ -1,0 +1,85 @@
+.pipe-table {
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.pipe-row {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid #f0f0f0;
+  gap: 1rem;
+  
+  &:last-child { border-bottom: none; }
+  &:nth-child(even) { background: #fafafa; }
+  
+  .pipe-label {
+    font-family: monospace;
+    font-size: 0.88rem;
+    color: #666;
+    min-width: 300px;
+    background: #f5f5f5;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .pipe-value {
+    font-weight: 600;
+    color: #333;
+    font-size: 1rem;
+  }
+}
+
+.async-demo {
+  background: #1a1a2e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  
+  .ticker {
+    font-family: monospace;
+    font-size: 1.2rem;
+    color: #a8ff78;
+    font-weight: 600;
+  }
+}
+
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  
+  label { font-weight: 600; color: #555; }
+}
+
+.search-input {
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #e8e8e8;
+  border-radius: 6px;
+  font-size: 1rem;
+  outline: none;
+  flex: 1;
+  max-width: 300px;
+  transition: border-color 0.2s;
+  &:focus { border-color: #dd0031; }
+}
+
+.highlight-demo {
+  background: #f8f9fa;
+  border: 1px solid #e8e8e8;
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  
+  ::ng-deep mark {
+    background: #fff176;
+    color: #333;
+    border-radius: 2px;
+    padding: 0.1rem 0.2rem;
+  }
+}

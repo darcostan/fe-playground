@@ -1,0 +1,77 @@
+<div class="home-container">
+  <header class="hero">
+    <div class="hero-icon">🅰️</div>
+    <h1>Angular Learning Playground</h1>
+    <p class="hero-subtitle">
+      An interactive guide to learning Angular features through hands-on examples.
+      Explore signals, reactive forms, lifecycle hooks, pipes, and more!
+    </p>
+    <div class="tech-badges">
+      <span class="badge">Angular 21+</span>
+      <span class="badge">Signals</span>
+      <span class="badge">Standalone Components</span>
+      <span class="badge">TypeScript</span>
+    </div>
+  </header>
+
+  <section class="features-grid">
+    <h2 class="section-title">📚 Topics to Explore</h2>
+    <div class="grid">
+      @for (feature of features; track feature.route) {
+        <a [routerLink]="feature.route" class="feature-card">
+          <div class="card-icon">{{ feature.icon }}</div>
+          <h3>{{ feature.title }}</h3>
+          <p>{{ feature.description }}</p>
+          <div class="tags">
+            @for (tag of feature.tags; track tag) {
+              <span class="tag">{{ tag }}</span>
+            }
+          </div>
+          <span class="explore-link">Explore →</span>
+        </a>
+      }
+    </div>
+  </section>
+
+  <section class="info-section">
+    <h2>🚀 What You'll Learn</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>⚡ Signals API</h3>
+        <ul>
+          <li><code>signal()</code> — create reactive state</li>
+          <li><code>computed()</code> — derived state</li>
+          <li><code>effect()</code> — side effects</li>
+          <li><code>linkedSignal()</code> — linked state</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>📦 Components</h3>
+        <ul>
+          <li>Standalone components</li>
+          <li>Input/Output signals</li>
+          <li>Lifecycle hooks</li>
+          <li>Content projection</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>🛣️ Routing</h3>
+        <ul>
+          <li>Lazy-loaded routes</li>
+          <li>RouterLink directive</li>
+          <li>Route parameters</li>
+          <li>Guards &amp; resolvers</li>
+        </ul>
+      </div>
+      <div class="info-card">
+        <h3>📝 Forms</h3>
+        <ul>
+          <li>Reactive forms</li>
+          <li>Built-in validators</li>
+          <li>Custom validators</li>
+          <li>Form arrays</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>

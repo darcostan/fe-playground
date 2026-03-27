@@ -1,0 +1,93 @@
+<div class="page-container">
+  <div class="page-header">
+    <h1>♻️ Lifecycle Hooks</h1>
+    <p class="page-desc">Angular component lifecycle hooks let you tap into key moments in a component's life.</p>
+  </div>
+
+  <div class="demo-section">
+    <h2>🧪 Live Demo</h2>
+    <p>Interact with the controls below to trigger lifecycle hooks. Watch the log panel!</p>
+    
+    <div class="controls-row">
+      <div class="control-group">
+        <label>Child component value:</label>
+        <input type="text" [value]="childValue()" (input)="updateChild($any($event.target).value)" class="text-input" />
+      </div>
+      <button (click)="toggleChild()" class="btn" [class.btn-primary]="!showChild()" [class.btn-danger]="showChild()">
+        {{ showChild() ? '🗑️ Destroy Child' : '✨ Create Child' }}
+      </button>
+    </div>
+
+    @if (showChild()) {
+      <app-child-demo [value]="childValue()" />
+    }
+  </div>
+
+  <div class="demo-section">
+    <div class="log-header-row">
+      <h2>📋 Hook Log</h2>
+      <button (click)="clearLog()" class="btn btn-secondary clear-btn">Clear</button>
+    </div>
+    <div class="hook-log" #logContainer>
+      @if (hookLogs().length === 0) {
+        <div class="empty-log">No hooks fired yet. Interact with the demo above!</div>
+      }
+      @for (entry of hookLogs(); track entry.time + entry.hook) {
+        <div class="log-entry">
+          <span class="hook-name" [style.color]="entry.color">{{ entry.hook }}</span>
+          <span class="hook-time">{{ entry.time }}</span>
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="hooks-reference">
+    <h2>📚 Lifecycle Hook Reference</h2>
+    <div class="hooks-grid">
+      <div class="hook-card" style="border-left-color: #28a745">
+        <div class="hook-title">ngOnInit</div>
+        <div class="hook-desc">Called once after the component is initialized. Use for setup logic, data fetching.</div>
+      </div>
+      <div class="hook-card" style="border-left-color: #fd7e14">
+        <div class="hook-title">ngOnChanges</div>
+        <div class="hook-desc">Called when input properties change. Receives SimpleChanges with previous &amp; current values.</div>
+      </div>
+      <div class="hook-card" style="border-left-color: #6f42c1">
+        <div class="hook-title">ngAfterViewInit</div>
+        <div class="hook-desc">Called after component's view and child views are initialized. Access ViewChild here.</div>
+      </div>
+      <div class="hook-card" style="border-left-color: #17a2b8">
+        <div class="hook-title">ngAfterContentInit</div>
+        <div class="hook-desc">Called after content projected into the component is initialized (ng-content).</div>
+      </div>
+      <div class="hook-card" style="border-left-color: #dc3545">
+        <div class="hook-title">ngOnDestroy</div>
+        <div class="hook-desc">Called just before the component is destroyed. Clean up subscriptions, timers here.</div>
+      </div>
+      <div class="hook-card" style="border-left-color: #868e96">
+        <div class="hook-title">ngAfterViewChecked</div>
+        <div class="hook-desc">Called after every check of the component's view. Use sparingly — runs frequently.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-section">
+    <h2>💻 Implementation</h2>
+    <pre class="code-block"><code>export class MyComponent implements OnInit, OnDestroy, AfterViewInit &#123;
+  @ViewChild('myRef') myRef!: ElementRef;
+
+  ngOnInit() &#123;
+    // ✅ Setup, fetch data, initialize state
+  &#125;
+
+  ngAfterViewInit() &#123;
+    // ✅ Access ViewChild references
+    console.log(this.myRef.nativeElement);
+  &#125;
+
+  ngOnDestroy() &#123;
+    // ✅ Clean up: unsubscribe, clear timers
+  &#125;
+&#125;</code></pre>
+  </div>
+</div>
